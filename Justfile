@@ -15,7 +15,7 @@ wrapper:
 
 # Compile frontend to WebAssembly via TeaVM
 build-frontend: wrapper
-    ./gradlew generateWasm
+    ./gradlew generateWasmGC
 
 # Build backend shadow jar
 build-backend: wrapper

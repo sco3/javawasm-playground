@@ -11,15 +11,17 @@ public class Frontend {
         HTMLElement button = document.getElementById("loadBtn");
         HTMLElement output = document.getElementById("output");
 
-        button.addEventListener("click", evt -> {
-            XMLHttpRequest xhr = XMLHttpRequest.create();
-            xhr.open("GET", "/api/hello");
-            xhr.onComplete(() -> {
-                if (xhr.getStatus() == 200) {
-                    output.setInnerHTML(xhr.getResponseText());
-                }
+        if (button != null) {
+            button.addEventListener("click", evt -> {
+                XMLHttpRequest xhr = XMLHttpRequest.create();
+                xhr.open("GET", "/api/hello");
+                xhr.onComplete(() -> {
+                    if (xhr.getStatus() == 200) {
+                        output.setInnerHTML(xhr.getResponseText());
+                    }
+                });
+                xhr.send();
             });
-            xhr.send();
-        });
+        }
     }
 }
