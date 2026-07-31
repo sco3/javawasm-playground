@@ -1,2 +1,4 @@
 build
 .gradle
+src/main/resources/public/js/
+src/main/resources/public/wasm-gc/
