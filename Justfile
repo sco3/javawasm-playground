@@ -13,26 +13,21 @@ wrapper:
         gradle wrapper --gradle-version 9.6.1; \
     fi
 
-# Compile frontend to WebAssembly via TeaVM
+# Build frontend and backend, then run Javalin server
+run: wrapper
+    ./gradlew generateJavaScript generateWasmGC run
+
+# Compile frontend to JS and WebAssembly
 build-frontend: wrapper
-    ./gradlew generateWasmGC
+    ./gradlew generateJavaScript generateWasmGC
 
 # Build backend shadow jar
 build-backend: wrapper
     ./gradlew shadowJar
 
-# Build both frontend and backend
+# Build all targets
 build: build-frontend build-backend
-
-# Run Javalin backend server
-run: wrapper
-    ./gradlew run
 
 # Clean build artifacts
 clean: wrapper
     ./gradlew clean
-    
-    
-    
-# ./gradlew generateJavaScript generateWasmGC build
-# ./gradlew generateJavaScript generateWasmGC run

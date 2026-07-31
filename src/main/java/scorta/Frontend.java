@@ -10,26 +10,26 @@ public class Frontend {
 
     @JSBody(
         script = """
-            console.log("TeaVM Frontend инициализирован");
+            console.log("TeaVM Frontend init");
 
             const btn = document.getElementById("loadBtn");
             const output = document.getElementById("output");
 
             if (!btn || !output) {
-                console.error("Элементы не найдены в DOM!");
+                console.error("Element not found in DOM!");
                 return;
             }
 
             btn.addEventListener("click", async () => {
                 try {
-                    console.log("Отправка запроса к бэкенду...");
+                    console.log("Send request to backend...");
                     const response = await fetch("/api/hello");
                     const text = await response.text();
                     output.textContent = text;
-                    console.log("Ответ получен:", text);
+                    console.log("Response:", text);
                 } catch (err) {
-                    console.error("Ошибка запроса:", err);
-                    output.textContent = "Ошибка связи с сервером";
+                    console.error("Request error:", err);
+                    output.textContent = "Server communication error";
                 }
             });
         """

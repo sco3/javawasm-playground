@@ -13,7 +13,7 @@ public class Backend {
                 staticFiles.location = Location.CLASSPATH;
                 staticFiles.hostedPath = "";
             });
-        }).start(7070);
+        }).start(8080);
 
         app.get("/api/hello", ctx -> ctx.result("Hello from Java Backend!"));
     }

@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="ru">
+<html>
     <head>
         <meta charset="UTF-8" />
         <title>Java Wasm + Javalin</title>
     </head>
     <body>
-        <h1>HelloWeb App на Java (Бэкенд + Wasm/Клиент)</h1>
-        <button id="loadBtn">Получить данные с бэкенда</button>
+        <h1>HelloWeb App на Java (Backend + Wasm Client)</h1>
+        <button id="loadBtn">Get data from backend</button>
         <div id="output" style="margin-top: 20px; font-weight: bold"></div>
 
         <script src="/js/client.js"></script>
@@ -22,7 +22,7 @@
                         main();
                     }
                 } catch (e) {
-                    console.error("Ошибка запуска TeaVM:", e);
+                    console.error("Failed to strt TeaVM:", e);
                 }
             });
         </script>
