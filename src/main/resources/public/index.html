@@ -8,6 +8,23 @@
         <h1>HelloWeb App на Java (Бэкенд + Wasm/Клиент)</h1>
         <button id="loadBtn">Получить данные с бэкенда</button>
         <div id="output" style="margin-top: 20px; font-weight: bold"></div>
-        <script src="client.js"></script>
+
+        <script src="/js/client.js"></script>
+        <script>
+            window.addEventListener("load", function () {
+                try {
+                    if (
+                        typeof B !== "undefined" &&
+                        typeof B.main === "function"
+                    ) {
+                        B.main();
+                    } else if (typeof main === "function") {
+                        main();
+                    }
+                } catch (e) {
+                    console.error("Ошибка запуска TeaVM:", e);
+                }
+            });
+        </script>
     </body>
 </html>

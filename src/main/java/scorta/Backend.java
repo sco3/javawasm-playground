@@ -1,17 +1,20 @@
 package scorta;
 
 import io.javalin.Javalin;
+import io.javalin.http.staticfiles.Location;
 
 public class Backend {
 
     public static void main(String[] args) {
         var app = Javalin.create(config -> {
-            config.staticFiles.add("/public");
-        }).start(8080);
+            config.staticFiles.add(staticFiles -> {
+                staticFiles.hostedPath = "/";
+                staticFiles.directory = "/public";
+                staticFiles.location = Location.CLASSPATH;
+                staticFiles.hostedPath = "";
+            });
+        }).start(7070);
 
-        app.get("/api/hello", ctx -> {
-            ctx.contentType("text/plain; charset=utf-8");
-            ctx.result("Привет из Javalin бэкенда!");
-        });
+        app.get("/api/hello", ctx -> ctx.result("Hello from Java Backend!"));
     }
 }

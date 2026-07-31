@@ -31,3 +31,8 @@ run: wrapper
 # Clean build artifacts
 clean: wrapper
     ./gradlew clean
+    
+    
+    
+# ./gradlew generateJavaScript generateWasmGC build
+# ./gradlew generateJavaScript generateWasmGC run

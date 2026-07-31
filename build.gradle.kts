@@ -33,7 +33,6 @@ application {
     mainClass.set("scorta.Backend")
 }
 
-
 tasks.withType<JavaExec>().configureEach {
     jvmArgs("--enable-preview")
 }
