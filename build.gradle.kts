@@ -21,7 +21,7 @@ java {
 }
 
 dependencies {
-    implementation("io.javalin:javalin:6.3.0")
+    implementation("io.javalin:javalin:7.2.2")
     implementation("org.slf4j:slf4j-simple:2.0.13")
     implementation("org.teavm:teavm-classlib:0.13.0")
     implementation("org.teavm:teavm-tooling:0.13.0")

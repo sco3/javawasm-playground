@@ -11,10 +11,11 @@ public class Backend {
                 staticFiles.hostedPath = "/";
                 staticFiles.directory = "/public";
                 staticFiles.location = Location.CLASSPATH;
-                staticFiles.hostedPath = "";
+            });
+
+            config.routes.get("/api/hello", ctx -> {
+                ctx.result("Hello from Java Backend!");
             });
         }).start(8080);
-
-        app.get("/api/hello", ctx -> ctx.result("Hello from Java Backend!"));
     }
 }
