@@ -11,3 +11,7 @@ Full-stack Java application with Javalin backend and TeaVM-compiled frontend.
 ## Open browser
 
 http://localhost:8080
+
+
+## Deep Wiki
+https://deepwiki.com/sco3/javawasm-playground
