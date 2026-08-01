@@ -14,7 +14,7 @@ wrapper:
     fi
 
 # Build frontend and backend, then run Javalin server
-run: wrapper
+run: wrapper build
     ./gradlew generateJavaScript generateWasmGC run
 
 # Compile frontend to JS and WebAssembly

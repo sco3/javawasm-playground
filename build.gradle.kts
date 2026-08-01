@@ -27,6 +27,22 @@ dependencies {
     implementation("org.teavm:teavm-tooling:0.13.0")
     implementation("org.teavm:teavm-jso-apis:0.13.0")
     implementation("org.teavm:teavm-jso:0.13.0")
+    val openapi = "7.2.2"
+
+    annotationProcessor(
+       "io.javalin.community.openapi:openapi-annotation-processor:$openapi"
+    )
+    implementation(
+           "io.javalin.community.openapi:javalin-openapi-plugin:$openapi"
+       )
+       // Optional: Swagger UI
+       implementation(
+           "io.javalin.community.openapi:javalin-swagger-plugin:$openapi"
+       )
+       // Optional: ReDoc
+       implementation(
+           "io.javalin.community.openapi:javalin-redoc-plugin:$openapi"
+       )
 }
 
 application {
