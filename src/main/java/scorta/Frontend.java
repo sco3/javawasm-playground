@@ -14,7 +14,6 @@ public class Frontend {
         HTMLElement output = doc.getElementById("output");
 
         if (btn != null && output != null) {
-            // Вешаем обработчик на клик
             btn.addEventListener(
                 "click",
                 new EventListener() {
