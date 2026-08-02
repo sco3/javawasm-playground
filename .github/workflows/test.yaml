@@ -1,0 +1,46 @@
+name: Test Server with UI Interaction
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '25'
+        distribution: 'temurin'
+
+    - name: Build server
+      run: |
+        ./gradlew generateJavaScript generateWasmGC run &
+        sleep 10
+
+    - name: Start server in background with logging
+      run: |
+        ./scripts/start-server.sh
+
+    - name: Install Playwright
+      run: |
+        npm install -D @playwright/test
+        npx playwright install chromium
+
+    - name: Run UI test
+      run: |
+        node .github/workflows/test.js
+
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-screenshots
+        path: screenshot-*.png
