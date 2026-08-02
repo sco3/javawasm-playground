@@ -9,17 +9,17 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    
+
     - name: Set up JDK
       uses: actions/setup-java@v4
       with:
         java-version: '25'
         distribution: 'temurin'
-    
+
     - name: Build server
       run: |
         ./gradlew generateJavaScript generateWasmGC run &
@@ -27,35 +27,17 @@ jobs:
 
     - name: Start server in background with logging
       run: |
-        ./gradlew run > server.log 2>&1 &
-        SERVER_PID=$!
-        echo "SERVER_PID=$SERVER_PID" >> $GITHUB_ENV
-        echo "Server started with PID: $SERVER_PID"
-        
-        echo "Waiting for server to start..."
-        for i in {1..15}; do
-          sleep 2
-          if curl -s http://localhost:8080 > /dev/null 2>&1; then
-            echo "✅ Server is running!"
-            break
-          fi
-          if [ $i -eq 15 ]; then
-            echo "❌ Server failed to start within 30 seconds"
-            cat server.log
-            exit 1
-          fi
-          echo "Still waiting... ($i/15)"
-        don
-    
+        ./scripts/start-server.sh
+
     - name: Install Playwright
       run: |
         npm install -D @playwright/test
         npx playwright install chromium
-    
+
     - name: Run UI test
       run: |
         node .github/workflows/test.js
-    
+
     - name: Upload test results
       if: always()
       uses: actions/upload-artifact@v4
