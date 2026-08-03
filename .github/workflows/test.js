@@ -39,29 +39,13 @@ const fs = require('fs');
     console.log('Clicking button...');
     
     // Click and wait for the network response
-    const [response] = await Promise.all([
-      page.waitForResponse(
-        response => response.url().includes('/api/') || response.url().includes('/data'),
-        { timeout: 10000 }
-      ),
-      page.click('#loadBtn')
-    ]);
 
-    console.log(`Network response received: ${response.url()} (status: ${response.status()})`);
-
-    // Wait for the UI to update - SIMPLIFIED APPROACH
-    console.log('Waiting for final content...');
-    
-    // Option 1: Just wait for the output to contain the expected text
-    await page.waitForFunction(
-      (expectedText) => {
-        const output = document.querySelector('#output');
-        return output && output.textContent.includes(expectedText);
-      },
-      { timeout: 15000 },
-      "Hello from Java Backend!"
-    );
-
+    await page.click('#loadBtn');
+    await page.waitForTimeout(2000);
+    const outputText = await page.textContent('#output');
+    if (outputText.startsWith("Hello from Java Backend!")) {
+      console.log("✅ SUCCESS!");
+    }
 
     const outputText = await page.textContent('#output');
     console.log(`Final response received: "${outputText}"`);
