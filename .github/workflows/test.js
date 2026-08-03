@@ -6,12 +6,12 @@ const fs = require('fs');
 
   const browser = await chromium.launch({
     headless: true,
-    args: ['--no-sandbox'] // Important for GitHub Actions
+    args: ['--no-sandbox']
   });
 
   const page = await browser.newPage();
 
-  // Set up network request monitoring BEFORE navigation
+  // Set up network request monitoring
   const requests = [];
   page.on('response', (response) => {
     if (response.url().includes('/api/') || response.url().includes('/data')) {
@@ -49,25 +49,19 @@ const fs = require('fs');
 
     console.log(`Network response received: ${response.url()} (status: ${response.status()})`);
 
-    // Now wait for the UI to update with the final content
+    // Wait for the UI to update - SIMPLIFIED APPROACH
     console.log('Waiting for final content...');
     
-    // Option 1: Wait for "Loading..." to disappear and final text to appear
+    // Option 1: Just wait for the output to contain the expected text
     await page.waitForFunction(
       (expectedText) => {
         const output = document.querySelector('#output');
-        return output && 
-               output.textContent !== 'Loading...' && 
-               output.textContent.includes(expectedText);
+        return output && output.textContent.includes(expectedText);
       },
       { timeout: 15000 },
       "Hello from Java Backend!"
     );
 
-    // Alternative Option 2: If you know the loading state will change
-    // await page.waitForSelector('#output:not(:empty)', { timeout: 10000 });
-    // await page.waitForTimeout(1000); // Brief pause for loading to complete
-    // await page.waitForSelector('#output:not(:contains("Loading..."))', { timeout: 10000 });
 
     const outputText = await page.textContent('#output');
     console.log(`Final response received: "${outputText}"`);
