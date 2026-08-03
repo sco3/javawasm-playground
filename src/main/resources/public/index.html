@@ -1,16 +1,50 @@
 <!doctype html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>Java Wasm + Javalin</title>
-    </head>
-    <body>
-        <h1>HelloWeb App на Java (Backend + Wasm Client)</h1>
-        <button id="loadBtn">Get data from backend</button>
-        <div id="output" style="margin-top: 20px; font-weight: bold"></div>
-        <script src="/js/client.js"></script>
-        <script>
-            main();
-        </script>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Java Wasm + Javalin Playground</title>
+    <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+    <main class="container">
+        <div class="card">
+            <header class="header">
+                <span class="badge">Live Demo</span>
+                <h1>Java WebAssembly + Javalin</h1>
+                <p class="subtitle">Full-stack Java with TeaVM-compiled WebAssembly client</p>
+            </header>
+
+            <button id="loadBtn" class="btn" type="button">
+                <span class="btn-text">Get data from backend</span>
+                <span class="spinner" aria-hidden="true"></span>
+            </button>
+
+            <div id="output" class="output" aria-live="polite"></div>
+
+            <div class="tech-stack">
+                <h3>Technology Stack</h3>
+                <div class="tech-tags">
+                    <span class="tech-tag">Java 25</span>
+                    <span class="tech-tag">Javalin 7.2</span>
+                    <span class="tech-tag">TeaVM 0.13</span>
+                    <span class="tech-tag">WebAssembly GC</span>
+                    <span class="tech-tag">OpenAPI</span>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <a href="https://deepwiki.com/sco3/javawasm-playground" target="_blank" rel="noopener">Deep Wiki</a> ·
+                <a href="/api/hello" target="_blank" rel="noopener">API Endpoint</a> ·
+                <a href="https://teavm.org" target="_blank" rel="noopener">TeaVM</a> ·
+                <a href="/openapi/" target="_blank" rel="noopener" >OpenAPI</a>
+            </footer>
+        </div>
+    </main>
+
+    <script src="/js/client.js"></script>
+    <script>
+        main();
+    </script>
+</body>
 </html>

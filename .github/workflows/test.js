@@ -4,7 +4,7 @@ const fs = require('fs');
 (async () => {
   console.log('Starting UI test...');
 
-  // Запускаем браузер
+  // start browser
   const browser = await chromium.launch({
     headless: true // В GitHub Actions обязательно headless режим
   });
@@ -12,36 +12,29 @@ const fs = require('fs');
   const page = await browser.newPage();
 
   try {
-    // 1. Открываем страницу
     console.log('Opening page...');
     await page.goto('http://localhost:8080', {
       waitUntil: 'networkidle',
       timeout: 5000
     });
 
-    // 2. Ждём загрузки кнопки
     console.log('Waiting for button...');
     await page.waitForSelector('#loadBtn', { timeout: 5000 });
 
-    // 3. Делаем скриншот ДО нажатия
     await page.screenshot({ path: 'screenshot-before.png' });
     console.log('Screenshot before click saved');
 
-    // 4. Нажимаем на кнопку
     console.log('Clicking button...');
     await page.click('#loadBtn');
 
-    // 5. Ждём появления результата в div#output
     console.log('Waiting for response...');
     await page.waitForSelector('#output:not(:empty)', { 
       timeout: 10000 
     });
 
-    // 6. Получаем текст ответа
     const outputText = await page.textContent('#output');
     console.log(`Response received: "${outputText}"`);
 
-    // 7. Делаем скриншот ПОСЛЕ нажатия
     await page.screenshot({ path: 'screenshot-after.png' });
     console.log('Screenshot after click saved');
 
@@ -54,7 +47,6 @@ const fs = require('fs');
       process.exit(1);
     }
     
-    // 9. Дополнительная проверка - статус ответа через network
     console.log('Checking network request...');
     const requests = [];
     page.on('response', (response) => {
@@ -67,7 +59,6 @@ const fs = require('fs');
       }
     });
     
-    // Повторно нажимаем для захвата network
     await page.click('#loadBtn');
     await page.waitForTimeout(2000);
     
@@ -85,7 +76,6 @@ const fs = require('fs');
   } catch (error) {
     console.error('Test failed:', error.message);
 
-    // Делаем скриншот ошибки
     try {
       await page.screenshot({ path: 'screenshot-error.png' });
       console.log('Error screenshot saved');
