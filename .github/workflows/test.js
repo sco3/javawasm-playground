@@ -39,16 +39,12 @@ const fs = require('fs');
     console.log('Clicking button...');
     
     // Click and wait for the network response
-
     await page.click('#loadBtn');
     await page.waitForTimeout(2000);
     const outputText = await page.textContent('#output');
     if (outputText.startsWith("Hello from Java Backend!")) {
       console.log("✅ SUCCESS!");
     }
-
-    const outputText = await page.textContent('#output');
-    console.log(`Final response received: "${outputText}"`);
 
     await page.screenshot({ path: 'screenshot-after.png' });
     console.log('Screenshot after click saved');
