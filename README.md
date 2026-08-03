@@ -4,24 +4,19 @@ Full-stack Java application demonstrating WebAssembly and JavaScript compilation
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Browser (Client)                         │
-│  ┌─────────────┐    ┌──────────────┐                      │
-│  │ index.html  │───▶│ client.js    │ (compiled WASM/JS)  │
-│  │             │    │              │   (TeaVM)          │
-│  └─────────────┘    └──────┬───────┘                      │
-│                           │ GET /api/hello ───────────┐   │
-└───────────────────────────┼──────────────────────────┼───┘
-                            │                          │
-                            ▼                          │
-┌──────────────────────────────────────────────────────────┴───┐
-│                  Javalin Backend Server                     │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │  Backend.java  (Main entry point, port 8080)         │   │
-│  │  HelloController.java (Hello API endpoint)          │   │
-│  └──────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph Browser["Browser (Client)"]
+        A["index.html"] --> B["client.js / client.wasm (compiled by TeaVM)"]
+    end
+
+    B -->|"GET /api/hello"| C["Javalin Backend Server"]
+    C -->|"JSON response"| B
+
+    subgraph Backend["Javalin Backend Server"]
+        D["Backend.java (main entry point, port 8080)"]
+        E["HelloController.java (Hello API endpoint)"]
+    end
 ```
 
 ## Technologies
@@ -103,3 +98,7 @@ Access Swagger UI at: http://localhost:8080/openapi/swagger-ui/index.html
 ## Deep Wiki
 
 https://deepwiki.com/sco3/javawasm-playground
+
+## Screenshot
+
+![Screenshot](images/screenshot.png)
